@@ -1,3 +1,8 @@
+:root {
+  --bg-color-1: hsl(70.74, 69.23%, 54.12%);
+  --bg-color-2: hsl(291.28, 46.61%, 50.78%);
+  --bg-color-3: hsl(0, 0%, 74.9%);
+}
 /*
   1. Use a more-intuitive box-sizing model.
 */
@@ -22,6 +27,10 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 100vh;
+  width: 100vw;
 }
 
 /*
@@ -67,9 +76,36 @@ h6 {
   isolation: isolate;
 }
 
-:root {
-  --prussian-blue: hsl(200, 95, 14);
-  --selective-yellow: hsl(43, 100, 51);
-  --olive: hsl(59, 55, 30);
-  --floral-white: hsl(32, 100, 97);
+.search-query {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color-1);
+}
+
+.current-conditions {
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-color-2);
+}
+
+.query-results {
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-color-3);
+}
+
+form {
+  display: flex;
+  column-gap: 1vw;
+}
+
+form > div:nth-of-type(3) {
+  flex: 1 1 auto;
+  align-self: end;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
 }

@@ -3,8 +3,22 @@ import { getWeatherData } from "./data";
 
 console.log("hello!");
 
-let { address, conditions, conditionsIcon, temp, tempFeelsLike } =
-  await getWeatherData();
-//      console.log(getWeatherData().address);
+const WeatherForm = document.querySelector("form");
 
-console.log({ address, conditions, conditionsIcon, temp, tempFeelsLike });
+WeatherForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const addressInput = document.getElementById("location").value;
+  const units = document.getElementById("units").value;
+  getWeatherData(addressInput, units).then((data) => {
+    const address = data.resolvedAddress;
+    const currentConditions = data.currentConditions;
+    const conditions = currentConditions.conditions;
+    const temp = currentConditions.temp;
+    const tempFeelsLike = currentConditions.feelslike;
+    const dailyConditions = data.days;
+    console.log({ address, conditions, temp, tempFeelsLike });
+    console.table(dailyConditions);
+  });
+
+  //      console.log(getdata().address);
+});

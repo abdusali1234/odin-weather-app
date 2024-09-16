@@ -5,5 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Da Wedda maaaan</title>
   </head>
-  <body></body>
+  <body>
+    <section class="search-query">
+      <form action="#">
+        <div class="form-field">
+          <label for="location">Enter an address, postcode, or town/city</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            minlength="2"
+            required
+          />
+        </div>
+        <div class="form-field">
+          <label for="units">Choose units</label>
+          <select name="units" id="units" required>
+            <option value="us">US (°F)</option>
+            <option value="metric">Metric (°C)</option>
+          </select>
+        </div>
+        <div>
+          <button type="submit" id="submit-btn">🔍</button>
+        </div>
+      </form>
+    </section>
+    <section class="current-conditions"></section>
+    <section class="query-results"></section>
+  </body>
 </html>
