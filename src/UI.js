@@ -1,5 +1,23 @@
 export class UserInterface {
+  static importAll(r) {
+    let images = {};
+    r.keys().map((item, index) => {
+      images[item.replace("./", "")] = r(item);
+    });
+    return images;
+  }
+
+  static images = UserInterface.importAll(
+    require.context(
+      "././assets/weather_icons/SVG/2nd Set - Monochrome/",
+      false,
+      /\.(png|jpe?g|svg)$/
+    )
+  );
+
   async displayCurrentWeather(address, conditions, icon, temp, tempFeelsLike) {
+    console.log(UserInterface.images);
+    console.log(icon);
     const currentConditions = document.querySelector(".current-conditions");
     currentConditions.innerHTML = "";
     const addressDiv = document.createElement("div");
@@ -14,8 +32,10 @@ export class UserInterface {
     iconsDiv.setAttribute("id", "conditions-icon");
     const iconImg = document.createElement("img");
     iconImg.setAttribute("class", "icons");
-    iconImg.src = `./assets/weather_icons/SVG/1st_set_monochrome/${icon}.svg`;
+    const iconFileName = icon + ".svg";
+    iconImg.src = `${UserInterface.images[iconFileName]}`;
     iconsDiv.appendChild(iconImg);
+    console.log(iconFileName);
 
     const tempDiv = document.createElement("div");
     tempDiv.setAttribute("id", "temperature");
