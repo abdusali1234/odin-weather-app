@@ -1,24 +1,32 @@
 import "./style.css";
 import { getWeatherData } from "./data";
+import { UserInterface } from "./UI";
 
 console.log("hello!");
+const ui = new UserInterface();
 
 const WeatherForm = document.querySelector("form");
 
-WeatherForm.addEventListener("submit", (event) => {
+WeatherForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const addressInput = document.getElementById("location").value;
   const units = document.getElementById("units").value;
-  getWeatherData(addressInput, units).then((data) => {
-    const address = data.resolvedAddress;
-    const currentConditions = data.currentConditions;
-    const conditions = currentConditions.conditions;
-    const temp = currentConditions.temp;
-    const tempFeelsLike = currentConditions.feelslike;
-    const dailyConditions = data.days;
-    console.log({ address, conditions, temp, tempFeelsLike });
-    console.table(dailyConditions);
-  });
+  const weatherData = await getWeatherData(addressInput, units);
 
-  //      console.log(getdata().address);
+  const address = weatherData.resolvedAddress;
+  const currentConditions = weatherData.currentConditions;
+  const conditions = currentConditions.conditions;
+  const temp = currentConditions.temp;
+  const tempFeelsLike = currentConditions.feelslike;
+  const icon = currentConditions.icon;
+  const dailyConditions = weatherData.days;
+  await ui.displayCurrentWeather(
+    address,
+    conditions,
+    icon,
+    temp,
+    tempFeelsLike
+  );
+  console.log({ address, conditions, temp, tempFeelsLike });
+  console.table(dailyConditions);
 });
