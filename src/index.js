@@ -11,8 +11,8 @@ WeatherForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const addressInput = document.getElementById("location").value;
   const units = document.getElementById("units").value;
-  const weatherData = await getWeatherData(addressInput, units);
 
+  const weatherData = await getWeatherData(addressInput, units);
   const address = weatherData.resolvedAddress;
   const currentConditions = weatherData.currentConditions;
   const conditions = currentConditions.conditions;
@@ -20,13 +20,10 @@ WeatherForm.addEventListener("submit", async (event) => {
   const tempFeelsLike = currentConditions.feelslike;
   const icon = currentConditions.icon;
   const dailyConditions = weatherData.days;
-  await ui.displayCurrentWeather(
-    address,
-    conditions,
-    icon,
-    temp,
-    tempFeelsLike
-  );
+
+  await ui.displayAddress(address);
+
+  await ui.displayCurrentWeather(conditions, icon, temp, tempFeelsLike);
   console.log({ address, conditions, temp, tempFeelsLike });
   console.table(dailyConditions);
 });

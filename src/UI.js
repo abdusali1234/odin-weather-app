@@ -15,40 +15,57 @@ export class UserInterface {
     )
   );
 
-  async displayCurrentWeather(address, conditions, icon, temp, tempFeelsLike) {
-    console.log(UserInterface.images);
-    console.log(icon);
-    const currentConditions = document.querySelector(".current-conditions");
-    currentConditions.innerHTML = "";
-    const addressDiv = document.createElement("div");
-    addressDiv.setAttribute("id", "address");
-    addressDiv.innerHTML = `${address}`;
+  async createWeatherCard(conditions, icon, temp, tempFeelsLike) {
+    const weatherCard = document.createElement("div");
+    weatherCard.setAttribute("class", "weather-card");
 
     const conditionsDiv = document.createElement("div");
-    conditionsDiv.setAttribute("id", "conditions");
+    conditionsDiv.setAttribute("class", "conditions");
     conditionsDiv.innerHTML = `${conditions}`;
 
     const iconsDiv = document.createElement("div");
-    iconsDiv.setAttribute("id", "conditions-icon");
+    iconsDiv.setAttribute("class", "conditions-icon");
     const iconImg = document.createElement("img");
     iconImg.setAttribute("class", "icons");
     const iconFileName = icon + ".svg";
     iconImg.src = `${UserInterface.images[iconFileName]}`;
     iconsDiv.appendChild(iconImg);
-    console.log(iconFileName);
 
     const tempDiv = document.createElement("div");
-    tempDiv.setAttribute("id", "temperature");
+    tempDiv.setAttribute("class", "temperature");
     tempDiv.innerHTML = `Current temperature: ${temp}`;
 
     const tempFeelsDiv = document.createElement("div");
-    tempFeelsDiv.setAttribute("id", "temp-feels-like");
+    tempFeelsDiv.setAttribute("class", "temp-feels-like");
     tempFeelsDiv.innerHTML = `Feels like: ${tempFeelsLike}`;
 
-    currentConditions.appendChild(addressDiv);
-    currentConditions.appendChild(conditionsDiv);
-    currentConditions.appendChild(iconsDiv);
-    currentConditions.appendChild(tempDiv);
-    currentConditions.appendChild(tempFeelsDiv);
+    weatherCard.appendChild(conditionsDiv);
+    weatherCard.appendChild(iconsDiv);
+    weatherCard.appendChild(tempDiv);
+    weatherCard.appendChild(tempFeelsDiv);
+
+    return weatherCard;
+  }
+
+  async displayAddress(address) {
+    const addressSection = document.querySelector("#address");
+    addressSection.innerHTML = "";
+    const addressDiv = document.createElement("div");
+    addressDiv.innerHTML = `${address}`;
+
+    addressSection.prepend(addressDiv);
+  }
+
+  async displayCurrentWeather(conditions, icon, temp, tempFeelsLike) {
+    const currentConditions = document.querySelector("#current-conditions");
+    currentConditions.innerHTML = "";
+    const CurrentWeatherCard = await this.createWeatherCard(
+      conditions,
+      icon,
+      temp,
+      tempFeelsLike
+    );
+
+    currentConditions.appendChild(CurrentWeatherCard);
   }
 }
