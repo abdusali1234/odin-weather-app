@@ -90,12 +90,15 @@ h6 {
   align-content: center;
   background-color: var(--bg-color-2);
   color: var(--bg-color-1);
+  gap: 1vw 1vh;
 }
 
 #current-weather > section {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1vw 1vh;
 }
 
 #address {
@@ -103,6 +106,7 @@ h6 {
   align-items: center;
   justify-content: center;
   text-decoration-line: underline;
+  font-size: 2rem;
 }
 
 #current-conditions {
@@ -116,15 +120,27 @@ h6 {
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(3, auto);
   gap: 1vw 1vh;
+  border: 0.25em solid;
+  border-radius: 2vw;
+  padding: 1vh;
+  width: 30vw;
 }
 
 .weather-card > div {
-  justify-items: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.conditions {
+.time {
   grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+
+.conditions {
+  grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 1;
@@ -159,6 +175,13 @@ h6 {
 form {
   display: flex;
   column-gap: 1vw;
+}
+
+#todays-weather-hourly {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
 }
 
 form > div:nth-of-type(3) {

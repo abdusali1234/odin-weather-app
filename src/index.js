@@ -22,8 +22,9 @@ WeatherForm.addEventListener("submit", async (event) => {
   const dailyConditions = weatherData.days;
 
   await ui.displayAddress(address);
-
   await ui.displayCurrentWeather(conditions, icon, temp, tempFeelsLike);
-  console.log({ address, conditions, temp, tempFeelsLike });
-  console.table(dailyConditions);
+
+  const today = weatherData.days[0].hours;
+  await ui.displayTodaysHourlyForecast(today);
+  console.log(today);
 });
