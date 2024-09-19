@@ -37,7 +37,7 @@ export class UserInterface {
 
     const tempDiv = document.createElement("div");
     tempDiv.setAttribute("class", "temperature");
-    tempDiv.innerHTML = `Current temperature: ${temp}`;
+    tempDiv.innerHTML = `Temperature: ${temp}`;
 
     const tempFeelsDiv = document.createElement("div");
     tempFeelsDiv.setAttribute("class", "temp-feels-like");
@@ -65,7 +65,7 @@ export class UserInterface {
     const currentConditions = document.querySelector("#current-conditions");
     currentConditions.innerHTML = "";
     const CurrentWeatherCard = await this.createWeatherCard(
-      "Today",
+      "Now",
       conditions,
       icon,
       temp,
@@ -77,6 +77,7 @@ export class UserInterface {
 
   async displayTodaysHourlyForecast(hourlyData) {
     const hourlyForecastDiv = document.querySelector("#todays-weather-hourly");
+    const currentHour = new Date().getHours();
     hourlyForecastDiv.innerHTML = "";
     hourlyData.forEach(async (hour) => {
       const time = hour.datetime;
@@ -92,7 +93,36 @@ export class UserInterface {
         temp,
         feelsLike
       );
+
+      if (currentHour > time.split(":")[0]) {
+        hourlyWeatherCard.classList.replace("time", "time-past");
+        hourlyWeatherCard
+          .getElementsByTagName("img")[0]
+          .classList.replace("icons", "icons-time-past");
+      }
       hourlyForecastDiv.appendChild(hourlyWeatherCard);
+    });
+  }
+
+  async displayDailyForecast(dailyData) {
+    const dailyForecastDiv = document.querySelector("#daily-forecast");
+    dailyForecastDiv.innerHTML = "";
+    dailyData.forEach(async (day) => {
+      const date = day.datetime;
+      const conditions = day.conditions;
+      const icon = day.icon;
+      const temp = day.temp;
+      const feelsLike = day.feelslike;
+
+      const dailyWeatherCard = await this.createWeatherCard(
+        date,
+        conditions,
+        icon,
+        temp,
+        feelsLike
+      );
+
+      dailyForecastDiv.appendChild(dailyWeatherCard);
     });
   }
 }
